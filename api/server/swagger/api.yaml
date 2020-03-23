@@ -1,0 +1,342 @@
+---
+swagger: "2.0"
+info:
+  description: "This is the definition for the El Aggregator Data API."
+  version: "1.0.0"
+  title: "El Aggregator API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "vishy787@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "el-aggregator.herokuapp.com"
+basePath: "/api/v1/"
+tags:
+- name: "player"
+  description: "Player data"
+- name: "team"
+  description: "Team data"
+schemes:
+- "https"
+- "http"
+paths:
+  /player/{player_id}:
+    get:
+      tags:
+      - "player"
+      summary: "Find player by ID"
+      description: "Returns a single player"
+      operationId: "get_player_by_id"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "player_id"
+        in: "path"
+        description: "ID of player to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Player"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Player not found"
+      x-swagger-router-controller: "server.controllers.player_controller"
+  /team/{team_id}:
+    get:
+      tags:
+      - "team"
+      summary: "Find team by ID"
+      description: "Returns a single team"
+      operationId: "get_team_by_id"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "team_id"
+        in: "path"
+        description: "ID of the team to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Team"
+        "400":
+          description: "Invalid ID supplied"
+        "404":
+          description: "Player not found"
+      x-swagger-router-controller: "server.controllers.team_controller"
+definitions:
+  Player:
+    type: "object"
+    required:
+    - "name"
+    - "sofifa_id"
+    properties:
+      name:
+        type: "string"
+      sofifa_id:
+        type: "integer"
+        format: "int64"
+      player_url:
+        type: "string"
+      long_name:
+        type: "string"
+      age:
+        type: "integer"
+        format: "int64"
+      height_cm:
+        type: "integer"
+        format: "int64"
+      weight_kg:
+        type: "integer"
+        format: "int64"
+      nationality:
+        type: "string"
+      club:
+        type: "string"
+      overall:
+        type: "integer"
+        format: "int64"
+      potential:
+        type: "integer"
+        format: "int64"
+      player_positions:
+        type: "string"
+      preferred_foot:
+        type: "string"
+      work_rate:
+        type: "string"
+      pace:
+        type: "integer"
+        format: "int64"
+      shooting:
+        type: "integer"
+        format: "int64"
+      passing:
+        type: "integer"
+        format: "int64"
+      dribbling:
+        type: "integer"
+        format: "int64"
+      defending:
+        type: "integer"
+        format: "int64"
+      physic:
+        type: "integer"
+        format: "int64"
+      gk_diving:
+        type: "integer"
+        format: "int64"
+      gk_handling:
+        type: "integer"
+        format: "int64"
+      gk_kicking:
+        type: "integer"
+        format: "int64"
+      gk_reflexes:
+        type: "integer"
+        format: "int64"
+      gk_speed:
+        type: "integer"
+        format: "int64"
+      gk_positioning:
+        type: "integer"
+        format: "int64"
+      player_traits:
+        type: "integer"
+        format: "int64"
+      attacking_crossing:
+        type: "integer"
+        format: "int64"
+      attacking_finishing:
+        type: "integer"
+        format: "int64"
+      attacking_heading_accuracy:
+        type: "integer"
+        format: "int64"
+      attacking_short_passing:
+        type: "integer"
+        format: "int64"
+      attacking_volleys:
+        type: "integer"
+        format: "int64"
+      skill_dribbling:
+        type: "integer"
+        format: "int64"
+      skill_curve:
+        type: "integer"
+        format: "int64"
+      skill_fk_accuracy:
+        type: "integer"
+        format: "int64"
+      skill_long_passing:
+        type: "integer"
+        format: "int64"
+      skill_ball_control:
+        type: "integer"
+        format: "int64"
+      movement_acceleration:
+        type: "integer"
+        format: "int64"
+      movement_sprint_speed:
+        type: "integer"
+        format: "int64"
+      movement_agility:
+        type: "integer"
+        format: "int64"
+      movement_reactions:
+        type: "integer"
+        format: "int64"
+      movement_balance:
+        type: "integer"
+        format: "int64"
+      power_shot_power:
+        type: "integer"
+        format: "int64"
+      power_jumping:
+        type: "integer"
+        format: "int64"
+      power_stamina:
+        type: "integer"
+        format: "int64"
+      power_strength:
+        type: "integer"
+        format: "int64"
+      power_long_shots:
+        type: "integer"
+        format: "int64"
+      mentality_aggression:
+        type: "integer"
+        format: "int64"
+      mentality_interceptions:
+        type: "integer"
+        format: "int64"
+      mentality_positioning:
+        type: "integer"
+        format: "int64"
+      mentality_vision:
+        type: "integer"
+        format: "int64"
+      mentality_penalties:
+        type: "integer"
+        format: "int64"
+      mentality_composure:
+        type: "integer"
+        format: "int64"
+      defending_marking:
+        type: "integer"
+        format: "int64"
+      defending_standing_tackle:
+        type: "integer"
+        format: "int64"
+      defending_sliding_tackle:
+        type: "integer"
+        format: "int64"
+      goalkeeping_diving:
+        type: "integer"
+        format: "int64"
+      goalkeeping_handling:
+        type: "integer"
+        format: "int64"
+      goalkeeping_kicking:
+        type: "integer"
+        format: "int64"
+      goalkeeping_positioning:
+        type: "integer"
+        format: "int64"
+      goalkeeping_reflexes:
+        type: "integer"
+        format: "int64"
+    example:
+      attacking_crossing: 5
+      attacking_finishing: 9
+      mentality_aggression: 6
+      gk_positioning: 1
+      mentality_positioning: 4
+      goalkeeping_reflexes: 4
+      shooting: 9
+      defending: 4
+      power_shot_power: 3
+      mentality_composure: 3
+      movement_agility: 6
+      club: "club"
+      attacking_short_passing: 6
+      potential: 2
+      mentality_vision: 8
+      goalkeeping_positioning: 6
+      power_stamina: 7
+      skill_ball_control: 1
+      movement_reactions: 5
+      pace: 7
+      goalkeeping_diving: 3
+      movement_acceleration: 2
+      defending_standing_tackle: 7
+      work_rate: "work_rate"
+      goalkeeping_kicking: 0
+      gk_reflexes: 6
+      nationality: "nationality"
+      skill_long_passing: 6
+      name: "name"
+      overall: 5
+      physic: 7
+      movement_balance: 6
+      power_strength: 0
+      gk_kicking: 1
+      weight_kg: 5
+      player_positions: "player_positions"
+      height_cm: 1
+      goalkeeping_handling: 4
+      defending_sliding_tackle: 5
+      long_name: "long_name"
+      skill_dribbling: 9
+      dribbling: 2
+      gk_diving: 1
+      gk_speed: 7
+      power_long_shots: 7
+      preferred_foot: "preferred_foot"
+      attacking_heading_accuracy: 9
+      gk_handling: 1
+      defending_marking: 3
+      player_url: "player_url"
+      power_jumping: 3
+      skill_curve: 6
+      mentality_interceptions: 0
+      mentality_penalties: 7
+      sofifa_id: 0
+      skill_fk_accuracy: 3
+      movement_sprint_speed: 6
+      attacking_volleys: 8
+      passing: 3
+      player_traits: 4
+      age: 6
+  Team:
+    type: "object"
+    required:
+    - "id"
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+        example: 8
+      league:
+        type: "string"
+        example: "English Premier League"
+      name:
+        type: "string"
+        example: "Liverpool"
+    example:
+      league: "English Premier League"
+      name: "Liverpool"
+      id: 8
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
