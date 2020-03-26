@@ -6,7 +6,7 @@ tl;dr - "I wonder how good this player I used in FIFA Career Mode is in real lif
 
 I love soccer, I love using Python, and I'm learning about microservices. This project was a great way to combine all of these worlds, and opened the doors to create something that people can actually use.
 
-Following soccer is fun, but following a league or team is not enough. Akin to the heightened sense of being that frequenting microbreweries and coffee roasteries brings to oneself, so does spotting budding talent in professional soccer. Who will be the next wonderkid? How high is their ceiling? Wow who is the guy on Norwich City who looks like Justin Bieber and is he always this good? These are the questions El Aggregator attempts to answer.
+Following soccer is fun, but following a league or team is not enough. Akin to the heightened sense of being that frequenting microbreweries and coffee roasteries brings to oneself, so does spotting budding talent in professional soccer. Who will be the next wonderkid? How high is their ceiling? Who is the guy on Norwich City who looks like Justin Bieber and is he always this good? These are the questions El Aggregator attempts to answer.
 
 ### How it works
 
