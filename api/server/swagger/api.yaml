@@ -21,7 +21,7 @@ schemes:
 - "https"
 - "http"
 paths:
-  /player/{player_id}:
+  /players/{player_id}:
     get:
       tags:
       - "player"
@@ -47,7 +47,7 @@ paths:
         "404":
           description: "Player not found"
       x-swagger-router-controller: "server.controllers.player_controller"
-  /team/{team_id}:
+  /teams/{team_id}:
     get:
       tags:
       - "team"
