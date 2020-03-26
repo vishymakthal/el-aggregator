@@ -1,0 +1,6 @@
+*.env
+__pycache__
+Makefile
+creds.py
+*.pyc
+*.json

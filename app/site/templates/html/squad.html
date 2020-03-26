@@ -1,0 +1,48 @@
+<html>
+
+  <head></head>
+    <title>{{team}} | El Aggregator</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+  </head>
+
+
+
+  <body>
+  	<div id="page-wrapper">
+  		<header id="header">
+        <h1><a href={{url_for('home')}}>El Aggregator</a></h1>
+      </header>
+        <section class="wrapper style5">
+          <div>
+           <img src={{img}}></img>
+          </div>
+          <h2>{{team}}</h2>
+            {% for player in squad%}
+            <div style="margin:auto;width:320px" class="card">
+            <div class="container">
+            <img src="https://cdn.sofifa.org/players/10/20/{{player.sofifa_id}}.png" ></img>
+            <br/>  
+            <a href="{{ url_for('PlayerReport', id=player.objectID) }}">{{player.long_name}}</a>
+            </div>
+            </div>
+            {%endfor%}
+        </section>
+    </body>
+
+
+  <!-- Scripts -->
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/highlight.js') }}"></script>
+
+</html>
