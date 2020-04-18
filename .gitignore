@@ -4,3 +4,4 @@ Makefile
 creds.py
 *.pyc
 *.json
+*-env
