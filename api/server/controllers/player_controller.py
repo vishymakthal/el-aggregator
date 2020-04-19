@@ -2,7 +2,7 @@ import connexion
 import six
 
 from server.models.player import Player  # noqa: E501
-from server.services import algolia_search
+from server.services import firebase 
 
 def get_player_by_id(player_id):  # noqa: E501
     """Find player by ID
@@ -15,4 +15,4 @@ def get_player_by_id(player_id):  # noqa: E501
     :rtype: Player
     """
 
-    return algolia_search.get_player(player_id)
+    return firebase.read('players', player_id) 

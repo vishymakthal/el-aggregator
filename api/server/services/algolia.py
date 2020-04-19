@@ -1,7 +1,7 @@
 from algoliasearch.search_client import SearchClient
 from server.config import cfg
 
-class Algolia():
+class Algolia:
 
     def __init__(self):
         self.client = SearchClient.create(cfg.ALGOLIA_ID, cfg.ALGOLIA_KEY)

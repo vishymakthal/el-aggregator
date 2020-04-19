@@ -18,7 +18,7 @@ def resource_not_found(error):
     return 'resource not found', 404 
 
 @app.errorhandler(500)
-def handle_500():
+def handle_500(error):
     return 'internal server error', 500
 
 def main():

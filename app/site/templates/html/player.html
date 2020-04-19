@@ -33,7 +33,7 @@
           <hr />
 					
 					<div align="center">
-						<img class="initial loaded" src="https://cdn.sofifa.org/players/10/20/{{report['sofifa_id']}}.png"  width="128" height="128" align="center">
+						<img src="https://www.futwiz.com/assets/img/fifa20/careerfaces/192985.png" width="128" height="128" align="center">
 						<br/><br/>
 						<p>Age: {{report['age']}} | Nation: {{report['nationality']}} | Position: {{report['player_positions']}}</p>
 						<ul class="actions">
@@ -120,29 +120,10 @@
 						player = new YT.Player('player', {
 						  height: '390',
 						  width: '640',
-						  videoId: '{{ yt_results[0].video_id }}',
-						  events: {
-							'onReady': onPlayerReady,
-							'onStateChange': onPlayerStateChange
-						  }
+						  videoId: '{{ yt_results[0].video_id }}'
 						});
 					  }
-				
-					  // 4. The API will call this function when the video player is ready.
-					  function onPlayerReady(event) {
-						event.target.playVideo();
-					  }
-				
-					  // 5. The API calls this function when the player's state changes.
-					  //    The function indicates that when playing a video (state=1),
-					  //    the player should play for six seconds and then stop.
-					  var done = false;
-					  function onPlayerStateChange(event) {
-						
-					  }
-					  function stopVideo() {
-						player.stopVideo();
-					  }
+					  
 					</script>
 					
 					<br/><br/>
