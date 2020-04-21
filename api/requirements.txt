@@ -1,7 +1,8 @@
 algoliasearch==2.1.0
 connexion == 2.6.0
 firebase-admin == 4.0.1
-python-dotenv==0.10.3 
+python-dotenv==0.10.3
+requests == 2.23.0 
 gunicorn == 20.0.4
 python_dateutil == 2.6.0
 setuptools >= 21.0.0
