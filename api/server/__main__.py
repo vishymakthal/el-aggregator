@@ -9,6 +9,16 @@ app = Flask(__name__)
 def get_player(player_id):
     return player_controller.get_player_by_id(player_id)
 
+@app.route("/api/v1/players/")
+def get_players_by_query():
+    if request.args['team']:
+        return player_controller.get_players_by_team_name(request.args['team'])
+
+@app.route("/api/v1/players/team/<team_id>")
+def get_players_by_team(team_id):
+    team_name = team_controller.get_team_by_id(team_id)['name']
+    return player_controller.get_and_split_players_by_team_name(team_name)
+
 @app.route("/api/v1/teams/<team_id>")
 def get_team(team_id):
     return team_controller.get_team_by_id(team_id)
@@ -17,8 +27,6 @@ def get_team(team_id):
 def get_img(id):
     if request.args['q'] == 'player':
         return player_controller.get_player_img_by_id(id)
-    # if requests.args['q'] == 'team':
-    #     return team_controller.get_team_img_by_id(id)
     return 'no resource type provided', 401
 
 @app.errorhandler(404)

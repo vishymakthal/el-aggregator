@@ -1,6 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import json
 
 
 class Firebase:
@@ -21,6 +22,12 @@ class Firebase:
         res = db.reference(ref).child(id).get()
         if res is None:
             return {}
+        return res
+
+    def query_by_club(self, ref, club):
+        res = db.reference(ref).order_by_child('club').equal_to(club).get()
+        if res is None:
+            return 404
         return res
 
     def delete(self, ref, id):
