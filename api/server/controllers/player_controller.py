@@ -69,7 +69,7 @@ def get_and_split_players_by_team_name(team_name):
     if squad == 404:
         return 404
     
-    defense = midfield = attack = goalkeepers = []
+    defense = []; midfield = []; attack = []; goalkeepers = []
     for player in squad.values():
         if player['player_positions'][:2] in ATTACK:
             attack.append(player)
