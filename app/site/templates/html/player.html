@@ -33,8 +33,8 @@
           <hr />
 					
 					<div align="center">
-						<img src="https://www.futwiz.com/assets/img/fifa20/careerfaces/192985.png" width="128" height="128" align="center">
 						<br/><br/>
+						<img src={{player_img}} style="width:160px;height:160px;margin-bottom:30px;">
 						<p>Age: {{report['age']}} | Nation: {{report['nationality']}} | Position: {{report['player_positions']}}</p>
 						<ul class="actions">
 							<li><h3>Overall</h3><a class="button">{{report['overall']}}</a></li>
@@ -89,7 +89,7 @@
 					<div align="center">
 						<ul class="actions">
 							<li><a href="https://www.transfermarkt.com/schnellsuche/ergebnis/schnellsuche?query={{('+').join(player_name.lower().split(' '))}}&x=0&y=0" class="button special icon fa-link" target="_blank">TransferMarkt</a></li>
-							<li><a href="https://sofifa.com/player/{{report['sofifa_id']}}" class="button special icon fa-link" target="_blank">SoFifa</a></li>
+							<li><a href="{{report['player_url']}}" class="button special icon fa-link" target="_blank">SoFifa</a></li>
 							<li><a href="#" class="button special icon fa-link">Wikipedia</a></li>
 						</ul>
 					</div>

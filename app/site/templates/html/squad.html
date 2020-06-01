@@ -19,10 +19,11 @@
       </header>
         <section class="wrapper style5">
           <h2 align='center'>{{team}}</h2>
-            {% for player in squad%}
-            <div style="margin:auto;width:320px" class="card">
+            {% for id,player in squad.items() %}
+            <div style="margin:auto;width:320px;margin-bottom:50px;padding:15px;" class="card">
               <div class="container">
-                <a href="{{ url_for('PlayerReport', id=player.objectID) }}">{{player.long_name}}</a>
+                <a href="{{ url_for('PlayerReport', id=id) }}">{{player.long_name}}</a>
+                <p style="margin:auto">{{player.player_positions}} | {{player.age}}</p>
               </div>
             </div>
             {%endfor%}

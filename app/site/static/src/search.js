@@ -20,7 +20,7 @@ teamSearch.addWidget(
       item: `
           <div class="container">
            </br>
-            <a class="button" href=/team?id={{objectID}}>{{name}}</a>
+            <a class="button" href=/team?id={{ext}}&name={{name}}>{{name}}</a>
           </div>
         </br>
       `,
@@ -48,7 +48,7 @@ playerSearch.addWidget(
     templates: {
       item: `
           <div class="container">
-            <a class="button"  href=/player?id={{objectID}}>{{short_name}}</a>
+            <a class="button"  href=/player?id={{sofifa_id}}>{{short_name}}</a>
           </div>
           </br>
       `,

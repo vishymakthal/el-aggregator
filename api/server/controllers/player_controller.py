@@ -6,7 +6,9 @@ import six
 
 
 from server.models.player import Player  # noqa: E501
-from server.services import firebase 
+from server.services import firebase
+from server.services import sofifa
+from server.services import wiki 
 
 ATTACK = {'ST','RS','LS','CF','LW','RW'}
 DEFENSE = {'CB','LWB','LB','RB','RWB'}
@@ -23,7 +25,10 @@ def get_player_by_id(player_id):  # noqa: E501
     :rtype: Player
     """
 
-    return firebase.read('players', player_id) 
+    res = firebase.read('players', player_id)
+    if res != {}:
+        res['bio'] = wiki.get_bio(res['long_name'], res['short_name'])
+    return res
 
 def get_player_img_by_id(player_id):
     """Get player's image from Sofifa
@@ -54,6 +59,18 @@ def get_players_by_team_name(team_name):
 
     return firebase.query_by_club('players', team_name)
 
+def get_full_squad(team_ext):
+    """Get players from a specific team and split them into smaller lists
+         based on position.
+
+    Returns List[Player]
+
+    :param team_name: Name of team to get players for 
+    :type team_name: str
+    """
+
+    return sofifa.get_full_squad_list(team_ext)
+
 def get_and_split_players_by_team_name(team_name):
     """Get players from a specific team and split them into smaller lists
          based on position.
@@ -64,20 +81,31 @@ def get_and_split_players_by_team_name(team_name):
     :type team_name: str
     """
 
-    squad = get_players_by_team_name(team_name)
+    squad = get_full_squad(team_name)
     
     if squad == 404:
         return 404
-    
     defense = []; midfield = []; attack = []; goalkeepers = []
-    for player in squad.values():
-        if player['player_positions'][:2] in ATTACK:
+    
+    for player in squad:
+        if player['position'] in ATTACK:
             attack.append(player)
-        elif player['player_positions'][:2] in DEFENSE:
+        elif player['position'] in DEFENSE:
             defense.append(player)
-        elif player['player_positions'][:2] in GOALKEEPER:
+        elif player['position'] in GOALKEEPER:
             goalkeepers.append(player)
         else:
-            midfield.append(player) # "Just go run around a bit" - Harry Redknapp
-    
+            # "Just go run around a bit" - Harry Redknapp
+            midfield.append(player)     
     return {'attack' : attack, 'midfield' : midfield, 'defense' : defense, 'gk' : goalkeepers}
+
+def get_player_bio_by_name(player_name):
+    """Get a player's Wikipedia bio.
+
+    Returns String 
+
+    :param player_name: player_name 
+    :type player_name: str
+    """
+
+    return wiki.get_bio(player_name)
