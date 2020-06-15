@@ -71,7 +71,7 @@ def get_full_squad(team_ext):
 
     return sofifa.get_full_squad_list(team_ext)
 
-def get_and_split_players_by_team_name(team_name):
+def get_and_split_players_by_team_id(team_id):
     """Get players from a specific team and split them into smaller lists
          based on position.
 
@@ -81,7 +81,7 @@ def get_and_split_players_by_team_name(team_name):
     :type team_name: str
     """
 
-    squad = get_full_squad(team_name)
+    squad = get_full_squad(team_id)
     
     if squad == 404:
         return 404

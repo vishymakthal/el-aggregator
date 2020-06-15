@@ -19,7 +19,7 @@ def get_players_by_query():
 
 @app.route("/api/v1/players/team/<team_ext>", methods=['GET'])
 def get_players_by_team(team_ext):
-    return player_controller.get_and_split_players_by_team_name(team_ext)
+    return player_controller.get_and_split_players_by_team_id(team_ext)
 
 # Team
 @app.route("/api/v1/teams/<team_id>")
@@ -30,6 +30,8 @@ def get_team(team_id):
 def get_img(id):
     if request.args['q'] == 'player':
         return player_controller.get_player_img_by_id(id)
+    if request.args['q'] == 'team':
+        return team_controller.get_team_img_by_id(id)
     return 'no resource type provided', 401
 
 # Bios
