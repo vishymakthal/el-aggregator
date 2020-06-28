@@ -30,6 +30,12 @@ class Firebase:
             return 404
         return res
 
+    def query_by_name(self, ref, query):
+        res = db.reference(ref).order_by_child('short_name').equal_to(query + "\uf8ff").get()
+        if res is None:
+            return 404
+        return res
+
     def delete(self, ref, id):
         obj_ref = self.db.reference(ref).child(id)
         obj_ref.delete()

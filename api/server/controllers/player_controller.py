@@ -109,3 +109,13 @@ def get_player_bio_by_name(player_name):
     """
 
     return wiki.get_bio(player_name)
+
+def search_players_by_name(query):
+    """Get a player's Wikipedia bio.
+
+    Returns List[Player] 
+
+    :param player_name: query 
+    :type player_name: str
+    """
+    return firebase.query_by_name('players', query)
