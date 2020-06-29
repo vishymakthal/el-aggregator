@@ -8,7 +8,8 @@ import six
 from server.models.player import Player  # noqa: E501
 from server.services import firebase
 from server.services import sofifa
-from server.services import wiki 
+from server.services import wiki
+from server.services import reddit 
 
 ATTACK = {'ST','RS','LS','CF','LW','RW'}
 DEFENSE = {'CB','LWB','LB','RB','RWB'}
@@ -28,6 +29,7 @@ def get_player_by_id(player_id):  # noqa: E501
     res = firebase.read('players', player_id)
     if res != {}:
         res['bio'] = wiki.get_bio(res['long_name'], res['short_name'])
+        res['highlights'] = reddit.search_highlights_by_player(res['short_name'], res['club'])
     return res
 
 def get_player_img_by_id(player_id):
@@ -115,7 +117,18 @@ def search_players_by_name(query):
 
     Returns List[Player] 
 
-    :param player_name: query 
-    :type player_name: str
+    :param query: query 
+    :type query: str
     """
     return firebase.query_by_name('players', query)
+
+def get_highlights_from_reddit(query):
+    """Get /r/soccer highlights for a player.
+
+    Returns List[Dict] 
+
+    :param query: query in the format Name|Team 
+    :type query: str
+    """
+    player, team = query.split('|')
+    return reddit.search_highlights_by_player(player, team)

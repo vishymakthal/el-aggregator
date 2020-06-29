@@ -43,6 +43,15 @@ def get_player_bio(subject_type):
 
     return 'no resource type provided', 401
 
+# Reddit highlights
+@app.route("/api/v1/highlights/reddit", methods=['GET'])
+def get_player_highlights():
+    
+    if request.args['query'] == '':
+        return 'no query provided', 401
+    
+    return player_controller.get_highlights_from_reddit(request.args['query']), 200
+
 @app.errorhandler(404)
 def resource_not_found(error):
     return 'resource not found', 404 
