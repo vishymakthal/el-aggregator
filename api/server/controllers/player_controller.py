@@ -9,7 +9,9 @@ from server.models.player import Player  # noqa: E501
 from server.services import firebase
 from server.services import sofifa
 from server.services import wiki
-from server.services import reddit 
+from server.services import reddit
+from server.services import youtube
+from server.services import transfermarkt 
 
 ATTACK = {'ST','RS','LS','CF','LW','RW'}
 DEFENSE = {'CB','LWB','LB','RB','RWB'}
@@ -29,7 +31,10 @@ def get_player_by_id(player_id):  # noqa: E501
     res = firebase.read('players', player_id)
     if res != {}:
         res['bio'] = wiki.get_bio(res['long_name'], res['short_name'])
-        res['highlights'] = reddit.search_highlights_by_player(res['short_name'], res['club'])
+        res['reddit'] = {'goals' : reddit.search_highlights_by_player(res['short_name'].split(' ')[-1], res['club'])}
+        res['youtube'] = {'highlights' : youtube.search_youtube_by_player_name(res['short_name'], res['club'])}
+        t = transfermarkt.new_player_profile(res['long_name'])
+        res['transfermarkt'] = {'similar_players': t.get_comparable_players(), 'url': t.get_url()}
     return res
 
 def get_player_img_by_id(player_id):

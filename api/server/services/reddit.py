@@ -28,7 +28,7 @@ class Reddit():
                 logging.info('adding post: {} | {}'.format(post.title, post.created_utc))
                 highlights.append({'title' : post.title, 'link' : post.url, 'comments' : post.permalink})
 
-        return {'goals' : highlights}
+        return highlights
 
     def search_highlights_by_player(self, player, club):
         '''
