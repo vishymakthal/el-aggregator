@@ -6,6 +6,9 @@ import six
 
 
 from server.models.player import Player  # noqa: E501
+
+from server.cache import C
+
 from server.services import firebase
 from server.services import sofifa
 from server.services import wiki
@@ -27,14 +30,20 @@ def get_player_by_id(player_id):  # noqa: E501
 
     :rtype: Player
     """
-
+    
+    if C.record_exists_for(player_id):
+        return C.read_record(player_id) 
+    
     res = firebase.read('players', player_id)
     if res != {}:
         res['bio'] = wiki.get_bio(res['long_name'], res['short_name'])
         res['reddit'] = {'goals' : reddit.search_highlights_by_player(res['short_name'].split(' ')[-1], res['club'])}
         res['youtube'] = {'highlights' : youtube.search_youtube_by_player_name(res['short_name'], res['club'])}
         t = transfermarkt.new_player_profile(res['long_name'])
-        res['transfermarkt'] = {'similar_players': t.get_comparable_players(), 'url': t.get_url()}
+        res['transfermarkt'] = {'similar_players': [], 'url': t.get_url()}
+    
+    C.write_record(player_id, res)
+    
     return res
 
 def get_player_img_by_id(player_id):
