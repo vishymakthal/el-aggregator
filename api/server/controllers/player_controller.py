@@ -31,7 +31,7 @@ def get_player_by_id(player_id):  # noqa: E501
     :rtype: Player
     """
     
-    if C.record_exists_for(player_id):
+    if C.has('obj_' + player_id):
         return C.read_record(player_id) 
     
     res = firebase.read('players', player_id)
@@ -54,11 +54,18 @@ def get_player_img_by_id(player_id):
     :param playerId: ID of player to retrieve image for
     :type playerId: str
     """
+    
+    if C.has('img_' + player_id):
+        print('reading from img cache')
+        return send_file(open('img_' + player_id + '.eac', 'rb'), mimetype='image/png')
 
     r = requests.get('https://cdn.sofifa.com/players/{}/{}/20_240.png'.format(player_id[:3],player_id[3:]))
     if r.status_code != 200:
         return 'error grabbing image', 500
-    
+
+    print('caching img')
+    C.write_img(player_id, r.content)
+
     return send_file(
         io.BytesIO(r.content),
         mimetype='image/png',

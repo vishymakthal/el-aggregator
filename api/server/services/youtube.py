@@ -16,7 +16,7 @@ class YouTube():
         '''
 
         url = "https://www.googleapis.com/youtube/v3/search?q=" + '{}%20{}'.format(player_name.replace(' ',"%20"),club.replace(' ',"%20")) + "%20highlights&maxResults=5&part=snippet&key=" + self.key 
-        print(url) 
+        
         search = requests.get(url,headers={'Accept' : 'application/json'})
         search_results = []
 
