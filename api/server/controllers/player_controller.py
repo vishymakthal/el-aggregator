@@ -3,9 +3,13 @@ import connexion
 import io
 import requests
 import six
+import hashlib
 
 
 from server.models.player import Player  # noqa: E501
+
+from server.cache import C
+
 from server.services import firebase
 from server.services import sofifa
 from server.services import wiki
@@ -27,14 +31,25 @@ def get_player_by_id(player_id):  # noqa: E501
 
     :rtype: Player
     """
-
+    
+    if C.has('obj_' + player_id):
+        return C.read_record(player_id) 
+    
     res = firebase.read('players', player_id)
-    if res != {}:
-        res['bio'] = wiki.get_bio(res['long_name'], res['short_name'])
-        res['reddit'] = {'goals' : reddit.search_highlights_by_player(res['short_name'].split(' ')[-1], res['club'])}
-        res['youtube'] = {'highlights' : youtube.search_youtube_by_player_name(res['short_name'], res['club'])}
-        t = transfermarkt.new_player_profile(res['long_name'])
-        res['transfermarkt'] = {'similar_players': t.get_comparable_players(), 'url': t.get_url()}
+    if res == {}:
+        return 404
+    
+    res['wiki'] = {
+        'bio' : wiki.get_bio(res['long_name'], res['short_name']),
+        'url' : wiki.get_url(res['long_name'], res['short_name'])
+    } 
+    res['reddit'] = {'goals' : reddit.search_highlights_by_player(res['short_name'].split(' ')[-1], res['club'])}
+    res['youtube'] = {'highlights' : youtube.search_youtube_by_player_name(res['short_name'], res['club'])}
+    t = transfermarkt.new_player_profile(res['long_name'])
+    res['transfermarkt'] = {'similar_players': [], 'url': t.get_url()}
+    
+    C.write_record(player_id, res)
+    
     return res
 
 def get_player_img_by_id(player_id):
@@ -45,11 +60,16 @@ def get_player_img_by_id(player_id):
     :param playerId: ID of player to retrieve image for
     :type playerId: str
     """
+    
+    if C.has('img_' + player_id):
+        return send_file(open('img_' + player_id + '.eac', 'rb'), mimetype='image/png')
 
     r = requests.get('https://cdn.sofifa.com/players/{}/{}/20_240.png'.format(player_id[:3],player_id[3:]))
     if r.status_code != 200:
         return 'error grabbing image', 500
-    
+
+    C.write_img(player_id, r.content)
+
     return send_file(
         io.BytesIO(r.content),
         mimetype='image/png',
@@ -64,7 +84,16 @@ def get_players_by_team_name(team_name):
     :type team_name: str
     """
 
-    return firebase.query_by_club('players', team_name)
+    h = hashlib.md5(team_name.encode()).hexdigest()[:8]
+
+    if C.has('obj_' + h):
+        return C.read_record(h) 
+    
+    res = firebase.query_by_club('players', team_name)
+
+    C.write_record(h, res)
+
+    return res
 
 def get_full_squad(team_ext):
     """Get players from a specific team and split them into smaller lists
@@ -84,8 +113,8 @@ def get_and_split_players_by_team_id(team_id):
 
     Returns List[List[Player]]
 
-    :param team_name: Name of team to get players for 
-    :type team_name: str
+    :param team_id: Id of team 
+    :type team_id: str
     """
 
     squad = get_full_squad(team_id)

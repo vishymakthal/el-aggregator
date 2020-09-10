@@ -6,3 +6,4 @@ creds.py
 *.json
 .vscode
 *-env
+*.eac
