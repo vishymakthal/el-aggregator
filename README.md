@@ -4,13 +4,13 @@ tl;dr - "I wonder how good this player I used in FIFA Career Mode is in real lif
 
 ### About
 
-I love soccer, I love using Python, and I'm learning about microservices. This project was a great way to combine all of these worlds, and opened the doors to create something that people can actually use.
+Being a soccer fan is fun, but sometimes following a league or team isn't enough. Akin to the heightened sense of being that frequenting microbreweries and/or operating a French press brings oneself, there's nothing like telling your friends about budding talent before an Italian club signs them on a loan-to-buy deal. 
 
-Following soccer is fun, but following a league or team is not enough. Akin to the heightened sense of being that frequenting microbreweries and coffee roasteries brings to oneself, so does spotting budding talent in professional soccer. Who will be the next wonderkid? How high is their ceiling? Who is the guy on Norwich City who looks like Justin Bieber and is he always this good? These are the questions El Aggregator attempts to answer.
+Who will be the next wonderkid? How high is their ceiling? How long has [Harry Styles](http://www.el-aggregator.com/player/225748) played for Norwich City and was he always this good? These are the questions El Aggregator attempts to answer.
 
 ### How it works
 
-El Aggregator is a containerized Flask app that is deployed on Heroku. Simply search by player name or team name. Team data and player ratings are collected from SoFifa and stored in an Algolia database, and player highlights are obtained via the Reddit API, as well as the YouTube API.
+El Aggregator is a containerized React app deployed on Heroku. Simply search by player name or team name, powered by [Algolia](algolia.com). Team data and player ratings are collected from SoFifa and stored in Google Firebase, and player highlights are obtained via the Reddit and YouTube APIs.
 
 
 ### Features
