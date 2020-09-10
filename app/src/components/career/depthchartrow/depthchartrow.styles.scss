@@ -1,0 +1,10 @@
+.depthChartRow {
+    width: 85vw;
+    margin: 0 auto;
+    display: grid;
+    justify-content: space-around;
+}
+
+.depthChartRow * + * {
+    margin: 0 0 0 1em;
+}
