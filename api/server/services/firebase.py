@@ -1,14 +1,16 @@
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
-import json
+from firebase_admin import storage
 
+import json
+import glob
 
 class Firebase:
 
-    def __init__(self, cert, db_url):
+    def __init__(self, cert, db_url, storage_url):
         self.cred = credentials.Certificate(cert)
-        self.default_app = firebase_admin.initialize_app(self.cred, {'databaseURL': db_url})
+        self.default_app = firebase_admin.initialize_app(self.cred, {'databaseURL': db_url, 'storageBucket' : storage_url})
 
     # creates a new entry. will overwrite an entry if it already exists
     def update(self, ref, id, obj=None):
@@ -39,3 +41,20 @@ class Firebase:
     def delete(self, ref, id):
         obj_ref = self.db.reference(ref).child(id)
         obj_ref.delete()
+
+    def save_to_storage(self):
+
+        print('pushing to store')
+        bucket = storage.bucket()
+
+        for f in glob.glob('./*.eac'):
+            blob = bucket.blob(f)
+            blob.upload_from_filename(f)
+
+    def read_from_storage(self):
+
+        print('pulling from store')
+        bucket = storage.bucket()
+
+        for blob in bucket.list_blobs():
+           blob.download_to_filename(blob.name) 

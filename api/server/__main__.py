@@ -1,13 +1,19 @@
 #!/usr/bin/evn python3
 from flask import Flask, request
 from flask_cors import CORS
+
 from server import encoder
 from server.controllers import player_controller, team_controller
+from server.services import firebase
+
+import atexit
 
 app = Flask(__name__)
 CORS(app)
 
-# Player
+atexit.register(firebase.save_to_storage)
+
+# Players
 @app.route("/api/v1/players/<player_id>")
 def get_player(player_id):
     return player_controller.get_player_by_id(player_id)
@@ -21,11 +27,12 @@ def get_players_by_query():
 def get_players_by_team(team_ext):
     return player_controller.get_and_split_players_by_team_id(team_ext)
 
-# Team
+# Teams
 @app.route("/api/v1/teams/<team_id>")
 def get_team(team_id):
     return team_controller.get_team_by_id(team_id)
 
+# Images
 @app.route("/api/v1/images/<id>", methods=['GET'])
 def get_img(id):
     if request.args['q'] == 'player':
