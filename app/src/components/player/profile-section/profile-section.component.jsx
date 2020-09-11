@@ -29,8 +29,8 @@ const ProfileSection = ({playerData}) => (
                 <br/>
                 <b>{playerData.club} | {playerData.nationality}</b>
                 <p>{playerData.age} | {playerData.player_positions}</p>
-                <p>{playerData.bio}</p>
-                <LinkBar tm_url={playerData.transfermarkt.url} sf_url={playerData.player_url} w_url={''}/>
+                <p>{playerData.wiki.bio}</p>
+                <LinkBar tm_url={playerData.transfermarkt.url} sf_url={playerData.player_url} w_url={playerData.wiki.url}/>
                 <br/>
             </div>
                 :
