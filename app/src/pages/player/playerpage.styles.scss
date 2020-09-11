@@ -1,0 +1,17 @@
+.playerPage {
+    h1, h2, h3 {
+        font-weight: 600;
+        letter-spacing: 0.225em; 
+        text-transform: uppercase;
+    }
+
+    p {
+        font-size: 0.8em;
+        letter-spacing: 0.1em; 
+    }
+
+    .dataSection {
+        display: flex;
+        flex-wrap: wrap; 
+    }
+}

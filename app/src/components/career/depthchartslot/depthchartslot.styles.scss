@@ -1,0 +1,12 @@
+.depthChartSlot {
+    display: flex;
+    -moz-osx-font-smoothing: grayscale;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.25s ease-out;
+    float: left;
+  }
+
+  .depthChartSlot:hover {
+    border-color: black;
+  }

@@ -1,12 +1,14 @@
-FROM python:3-alpine
+FROM node:13.12.0-alpine
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY requirements.txt /usr/src/app/
+ENV PATH /app/node_modules/.bin:$PATH
 
-RUN pip3 install --no-cache-dir -r requirements.txt
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
 
-COPY site /usr/src/app
+COPY . ./
 
-CMD  gunicorn --pythonpath site ScoutingSite:app --log-file=- --bind 0.0.0.0:$PORT 
+CMD ["npm", "start"]
