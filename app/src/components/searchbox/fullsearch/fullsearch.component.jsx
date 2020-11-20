@@ -13,7 +13,7 @@ class FullSearch extends React.Component {
    }
 
    handleSubmit (event) {
-    fetch(`https://el-aggregator-api-q3hl2qd3ia-uk.a.run.app/api/v1/`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/v1/`)
    }
 
    render () {
@@ -30,7 +30,7 @@ class FullSearch extends React.Component {
         <div className='searchResults'>      
           {this.state.hits.map(hit => (
             <div className='searchResult'>
-              <img src={`https://el-aggregator-api-q3hl2qd3ia-uk.a.run.app/api/v1/images/${hit.sofifa_id}?q=player`}/>
+              <img src={`${process.env.REACT_APP_API_URL}/api/v1/images/${hit.sofifa_id}?q=player`}/>
               <a key={hit.sofifa_id} href={`/player/${hit.sofifa_id}`}>{hit.short_name}</a>
             </div>
           ))}

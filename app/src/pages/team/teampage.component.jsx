@@ -15,7 +15,7 @@ class TeamPage extends React.Component {
     }
 
     async componentDidMount() {
-        fetch(`https://el-aggregator-api-q3hl2qd3ia-uk.a.run.app/api/v1/players/?team=${this.props.match.params.name}`, {method: 'GET'})
+        fetch(`${process.env.REACT_APP_API_URL}/api/v1/players/?team=${this.props.match.params.name}`, {method: 'GET'})
             .then(response => response.json())
             .then(players => this.setState({players : players}));
     }
@@ -23,10 +23,10 @@ class TeamPage extends React.Component {
     render () {
         
         const name = this.props.match.params.name.toUpperCase();
-        const img = `https://el-aggregator-api-q3hl2qd3ia-uk.a.run.app/api/v1/images/${this.props.match.params.id}?q=team`;
+        const img = `${process.env.REACT_APP_API_URL}/api/v1/images/${this.props.match.params.id}?q=team`;
         const players = Object.keys(this.state.players).map((key, ix) =>
                     <div className='searchResult'>
-                        <img alt={key} src={`https://el-aggregator-api-q3hl2qd3ia-uk.a.run.app/api/v1/images/${key}?q=player`}/>
+                        <img alt={key} src={`${process.env.REACT_APP_API_URL}/api/v1/images/${key}?q=player`}/>
                         <a key={key} href={`/player/${key}`}>{this.state.players[key].short_name}</a>
                     </div>
                     );

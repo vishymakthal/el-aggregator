@@ -3,6 +3,8 @@ import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import Skeleton from 'react-loading-skeleton';
 
+import SearchBox from '../../searchbox/searchbox.component';
+
 import './fifa-section.styles.scss';
 
 
@@ -42,14 +44,8 @@ const FifaSection = ({playerData}) => (
             {playerData ?
             <> 
                 <Radar data={loadChartData(playerData)} />
-                <b>Similar Players</b>
-                <ul>
-                    {playerData.transfermarkt.similar_players.map((player) =>
-                            <li>
-                                <a>{player}</a>
-                            </li>
-                        )}
-                </ul>
+                <b>Compare To</b>
+                <SearchBox index={"players"} kind={"compare"} />
             </>
             : 
             <Skeleton /> }

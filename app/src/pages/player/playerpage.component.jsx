@@ -18,19 +18,20 @@ class PlayerPage extends React.Component {
         }
     }
 
-    componentWillMount() {
-        fetch(`https://el-aggregator-api-q3hl2qd3ia-uk.a.run.app/api/v1/players/${this.props.match.params.id}`, {method: 'GET'})
+    getData() {
+        fetch(`${process.env.REACT_APP_API_URL}/api/v1/players/${this.props.match.params.id}`, {method: 'GET'})
         .then(response => response.json())
-        .then(player => this.setState({playerData : player, youtubePreview: player.youtube.highlights[0]}));
+        .then(player => this.setState({playerData : player}));
        
     }
 
     render () {
 
+        this.getData();
         const playerData = this.state.playerData;
         if (playerData) {
             playerData.id = this.props.match.params.id; 
-            playerData.img = `https://el-aggregator-api-q3hl2qd3ia-uk.a.run.app/api/v1/images/${this.props.match.params.id}?q=player`;
+            playerData.img = `${process.env.REACT_APP_API_URL}/api/v1/images/${this.props.match.params.id}?q=player`;
         }
         const youtubePreview = this.state.youtubePreview;
 
@@ -39,9 +40,9 @@ class PlayerPage extends React.Component {
             <div className='playerPage'>
                 <div className='dataSection'>
                     <ProfileSection playerData={playerData} />
-                    <FifaSection playerData={playerData} />
                 </div>
-                {playerData ? <HighlightSection playerData={playerData} youtubePreview={youtubePreview}/> : <br/> }
+                <FifaSection playerData={playerData} />
+                {/* {playerData ? <HighlightSection playerData={playerData} youtubePreview={youtubePreview}/> : <br/> } */}
             </div>
         )
     }

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 375px;
+    width: 80%;
     margin: auto auto 100px auto;
     padding: 20px;
     border-radius: 5px;
@@ -18,7 +18,6 @@
         padding: 0 2em;
         margin: 0px 20px 0px 0px;
         box-shadow: inset 0 0 0 2px black;
-        border-radius: 5px;
  
     }
 
@@ -26,6 +25,5 @@
         color: black;
         padding: 0 2em;
         box-shadow: inset 0 0 0 2px black;
-        border-radius: 5px;
     }
 }

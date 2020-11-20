@@ -50,7 +50,7 @@ class HomePage extends React.Component {
                         label="Full Search"
                     /> */}
                 </FormGroup>
-                <SearchBox index={ix} full={this.state.fullSearch} />
+                <SearchBox index={ix} kind={this.state.fullSearch ? "full" : ""} />
             </div>
         )
     }
