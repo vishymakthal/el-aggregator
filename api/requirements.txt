@@ -3,7 +3,7 @@ beautifulsoup4==4.8.1
 connexion == 2.6.0
 firebase-admin == 4.0.1
 flask-cors == 3.0.8
-lxml == 4.5.1
+lxml == 4.9.1
 praw==7.1.0
 prawcore==1.4.0
 python-dotenv==0.10.3
